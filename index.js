@@ -16,6 +16,9 @@ app.listen(PORT, () => {
   console.log('Online');
 });
 
-const talkersRouter = require('./talkersRouter');
+const talkersRouter = require('./middlewares/talkersRouter');
+const loginRouter = require('./middlewares/loginRouter');
 
 app.use('/talker', talkersRouter);
+
+app.use('/login', loginRouter);
