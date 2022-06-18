@@ -1,6 +1,6 @@
 const express = require('express');
 
-const talkerUtils = require('./fs-utils');
+const talkerUtils = require('./Utils/fs-utils');
 
 const router = express.Router();
 
