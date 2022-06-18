@@ -1,8 +1,8 @@
 const fs = require('fs/promises');
 
-function getTalker() {
-  return fs.readFile('./talker.json', 'utf-8')
-    .then((fileContent) => JSON.parse(fileContent));
+async function getTalker() {
+  const fileContent = await fs.readFile('./talker.json', 'utf-8');
+  return JSON.parse(fileContent);
 }
 
 function setTalker(newTalker) {
