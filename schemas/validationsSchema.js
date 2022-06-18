@@ -1,6 +1,6 @@
-import Joi from 'joi';
+const Joi = require('joi');
 
-const loginValidation = Joi.object({
+const data = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com'] } })
     .required()
@@ -20,4 +20,4 @@ const loginValidation = Joi.object({
     }),
 });
 
-export default loginValidation;
+module.exports = data;
