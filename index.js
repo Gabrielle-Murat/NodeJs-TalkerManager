@@ -15,3 +15,7 @@ app.get('/', (_request, response) => {
 app.listen(PORT, () => {
   console.log('Online');
 });
+
+const talkersRouter = require('./talkersRouter');
+
+app.use('/talker', talkersRouter);
