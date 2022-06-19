@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const data = Joi.object({
+const loginData = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com'] } })
     .required()
@@ -20,4 +20,4 @@ const data = Joi.object({
     }),
 });
 
-module.exports = data;
+module.exports = loginData;
