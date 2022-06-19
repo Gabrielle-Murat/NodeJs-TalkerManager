@@ -1,6 +1,9 @@
 const express = require('express');
 
 const talkerUtils = require('../utils/fs-utils');
+const authMiddleware = require('./authMiddleware');
+const { createTalker } = require('./talkersManagement');
+const { validateDateFormat, talkersValidation } = require('./talkersValidation');
 
 const router = express.Router();
 
@@ -19,5 +22,18 @@ router.get('/:id', async (req, res) => {
 
   return res.status(200).json(talker);
 });
+
+router.use(authMiddleware);
+
+router.post(
+  '/',
+  talkersValidation,
+  validateDateFormat,
+  async (req, res) => {
+    const talker = req.body;
+    const newTalker = await createTalker(talker);
+    return res.status(201).json(newTalker);
+  },
+);
 
 module.exports = router;
