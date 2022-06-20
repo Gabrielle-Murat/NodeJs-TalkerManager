@@ -2,7 +2,7 @@ const express = require('express');
 
 const talkerUtils = require('../utils/fs-utils');
 const authMiddleware = require('./authMiddleware');
-const { createTalker, updateTalker } = require('./talkersManagement');
+const { createTalker, updateTalker, deleteTalker } = require('./talkersManagement');
 const { validateDateFormat, talkersValidation } = require('./talkersValidation');
 
 const router = express.Router();
@@ -47,6 +47,19 @@ router.put(
     await updateTalker(talkerId, newTalkerInfo);
 
     return res.status(200).json({ id: talkerId, ...newTalkerInfo });
+  },
+);
+
+router.delete(
+  '/:id',
+  async (req, res) => {
+    const talkerId = parseInt(req.params.id, 10);
+
+    const response = await deleteTalker(talkerId);
+
+    if (response === true) return res.status(204).end();
+
+    return res.status(400).json({ message: 'O palestrante não pôde ser deletado' });
   },
 );
 
