@@ -2,10 +2,27 @@ const express = require('express');
 
 const talkerUtils = require('../utils/fs-utils');
 const authMiddleware = require('./authMiddleware');
-const { createTalker, updateTalker, deleteTalker } = require('./talkersManagement');
+const { createTalker, updateTalker, deleteTalker, searchByTerm } = require('./talkersManagement');
 const { validateDateFormat, talkersValidation } = require('./talkersValidation');
 
 const router = express.Router();
+
+router.get(
+  '/search',
+  authMiddleware,
+  async (req, res) => {
+    const { q: queryTerm } = req.query;
+    const talkers = await talkerUtils.getTalker();
+
+    if (!queryTerm) return res.status(200).json(talkers);
+
+    const response = await searchByTerm(queryTerm);
+
+    if (!response) return res.status(200).json([]);
+
+    return res.status(200).json(response);
+  },
+);
 
 router.get('/', async (_req, res) => {
   const talkers = await talkerUtils.getTalker();
