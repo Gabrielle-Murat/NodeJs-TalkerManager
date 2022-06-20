@@ -2,7 +2,7 @@ const express = require('express');
 
 const talkerUtils = require('../utils/fs-utils');
 const authMiddleware = require('./authMiddleware');
-const { createTalker } = require('./talkersManagement');
+const { createTalker, updateTalker } = require('./talkersManagement');
 const { validateDateFormat, talkersValidation } = require('./talkersValidation');
 
 const router = express.Router();
@@ -33,6 +33,20 @@ router.post(
     const talker = req.body;
     const newTalker = await createTalker(talker);
     return res.status(201).json(newTalker);
+  },
+);
+
+router.put(
+  '/:id',
+  talkersValidation,
+  validateDateFormat,
+  async (req, res) => {
+    const talkerId = parseInt(req.params.id, 10);
+    const newTalkerInfo = req.body;
+
+    await updateTalker(talkerId, newTalkerInfo);
+
+    return res.status(200).json({ id: talkerId, ...newTalkerInfo });
   },
 );
 
