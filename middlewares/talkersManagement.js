@@ -41,4 +41,12 @@ async function deleteTalker(talkerId) {
   return false;
 }
 
-module.exports = { createTalker, updateTalker, deleteTalker };
+async function searchByTerm(queryTerm) {
+  const talkers = await talkerUtils.getTalker();
+
+  const talker = talkers.filter(({ name }) => name.includes(queryTerm));
+
+  return talker;
+}
+
+module.exports = { createTalker, updateTalker, deleteTalker, searchByTerm };
