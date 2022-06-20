@@ -12,4 +12,18 @@ async function createTalker(talker) {
   return newTalker;
 }
 
-module.exports = { createTalker };
+async function updateTalker(talkerId, newTalkerInfo) {
+  const talkers = await talkerUtils.getTalker();
+
+  const updatedTalkers = talkers.map((person) => {
+    if (person.id === talkerId) {
+      return { id: talkerId, ...newTalkerInfo };
+    }
+    return person;
+  });
+
+  await talkerUtils.setTalker(updatedTalkers);
+  return { id: talkerId, ...newTalkerInfo };
+}
+
+module.exports = { createTalker, updateTalker };
