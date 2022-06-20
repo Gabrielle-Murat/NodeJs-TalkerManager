@@ -26,4 +26,19 @@ async function updateTalker(talkerId, newTalkerInfo) {
   return { id: talkerId, ...newTalkerInfo };
 }
 
-module.exports = { createTalker, updateTalker };
+async function deleteTalker(talkerId) {
+  const talkers = await talkerUtils.getTalker();
+  const originalLength = talkers.length;
+
+  const remainingTalkers = talkers.filter((person) => person.id !== talkerId);
+  const newLength = remainingTalkers.length;
+
+  if (originalLength > newLength) {
+    await talkerUtils.setTalker(remainingTalkers);
+    return true;
+  }
+
+  return false;
+}
+
+module.exports = { createTalker, updateTalker, deleteTalker };
