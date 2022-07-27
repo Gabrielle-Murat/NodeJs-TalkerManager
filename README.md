@@ -164,14 +164,14 @@
 
   <h4 id="requisito7">Requisito 7: Criação de um endpoint DELETE `/talker/:id`</h4>
   
-    7. Criar um ednpoint para deletar um palestrante com base no id da rota:
+    7. Criar um endpoint para deletar um palestrante com base no id da rota:
       7.1. A requisição deve ter o token no header, no campo `authorization`.
       7.2. O token deve ser validado conforme o requisito 5.
       7.3. Retornar `status 204` sem mensagem de resposta.
 
   <h4 id="requisito8">Requisito 8: Criação de um endpoint GET `/talker/search`</h4>
   
-    8. Criar em ednpoint para buscar palestrantes que contenham em seu nome o termo pesquisado no queryParam da URL:
+    8. Criar em endpoint para buscar palestrantes que contenham em seu nome o termo pesquisado no queryParam da URL:
       8.1. A requisição deve ter o token no header, no campo `authorization`.
       8.2. O token deve ser validado conforme o requisito 5.
       8.3. Caso o termo de busca esteja vazio: retornar `status 200` e um array contendo todos os palestrantes cadastrados.
